@@ -1,43 +1,19 @@
 package com.example.voicelibrarysample;
 
 /**
+ * Created by Mewada Arvind on 1 June 2019
  * master interface integration all voice
  * relented action and extend network process
+ * staring listening interface
+ * live text interface
+ * final message interface
+ * received final result interface
+ * network interface extends all
  * */
-public interface MasterInterfaceVoice extends NetworkCallAfterFinalMessageRecieved{
-
-    /**
-     * starting listening process
-     * */
-    void startedListening();
-
-    /**
-     *live text change show
-     * */
-    void liveTextChangesShow();
-
-    /**
-     * final test show if success
-     * */
-    void finalResultShow();
-
+public interface MasterInterfaceVoice extends StaringListeningMaster, LiveTextChangesMaster
+        ,FinalResultMaster, NetworkCallAfterFinalMessageRecieved, ReceivedFinalAllMaster{
     /**
      * error if something wrong
      * */
     void errorShow();
-
-    /**
-     * network processing
-     * */
-    void processingNetwork();
-
-    /**
-     * received process action perform
-     * */
-    void recievedProcess();
-
-    /**
-     * stop all listening process
-     * */
-    void stopAll();
 }
