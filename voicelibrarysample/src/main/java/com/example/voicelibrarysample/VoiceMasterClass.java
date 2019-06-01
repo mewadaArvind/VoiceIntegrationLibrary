@@ -8,6 +8,6 @@ public class VoiceMasterClass {
      * @Param Context
      * @Param MasterInterface
      * */
-    public VoiceMasterClass(Context context,MasterInterfaceVoice masterInterfaceVoice) {
+    public static  void VoiceMasterClass(Context context,MasterInterfaceVoice masterInterfaceVoice) {
     }
 }

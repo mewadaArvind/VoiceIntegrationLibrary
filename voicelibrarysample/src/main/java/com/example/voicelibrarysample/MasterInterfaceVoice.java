@@ -5,18 +5,39 @@ package com.example.voicelibrarysample;
  * relented action and extend network process
  * */
 public interface MasterInterfaceVoice extends NetworkCallAfterFinalMessageRecieved{
-//   start listening process
+
+    /**
+     * starting listening process
+     * */
     void startedListening();
-//    live text change show
+
+    /**
+     *live text change show
+     * */
     void liveTextChangesShow();
-//  final test show if success
+
+    /**
+     * final test show if success
+     * */
     void finalResultShow();
-//    error if something wrong
+
+    /**
+     * error if something wrong
+     * */
     void errorShow();
-//    network processing
+
+    /**
+     * network processing
+     * */
     void processingNetwork();
-//  received process action perform
+
+    /**
+     * received process action perform
+     * */
     void recievedProcess();
-//    stop all listening process
+
+    /**
+     * stop all listening process
+     * */
     void stopAll();
 }
