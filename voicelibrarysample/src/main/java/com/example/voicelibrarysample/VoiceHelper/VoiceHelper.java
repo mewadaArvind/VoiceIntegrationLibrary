@@ -37,37 +37,7 @@ public class VoiceHelper  {
         this.context = context;
         speechRecognizer = createSpeechRecognizer(context);
     }
-    public VoiceHelper(Context context, Listening listening
-            , Processing processing, StopListening stopping
-            , final UtteranceProgressListener utteranceProgressListener
-            , EditText editText){
-        this.context = context;
-        this.listening = listening;
-        this.processing = processing;
-        this.stopping = stopping;
-        this.utteranceProgressListener = utteranceProgressListener;
-        tts = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if (status == TextToSpeech.SUCCESS) {
-                    tts.setOnUtteranceProgressListener(utteranceProgressListener);
-                    tts.setPitch(0.8f);
-                    tts.setSpeechRate(1f);
-                    Locale locale = new Locale("en","IN");
-                    int result = tts.setLanguage(locale);
-                    if (result == TextToSpeech.LANG_MISSING_DATA
-                            || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                        Log.e("TTS", "This Language is not supported");
-                    } else {
 
-                    }
-                } else {
-                    Log.e("TTS", "Initialization Failed!");
-                }
-            }
-        });
-        speechRecognizer = createSpeechRecognizer(context);
-    }
 
     public boolean isCurrentlySpeakingMain(){
         if(tts != null && tts.isSpeaking()){
@@ -98,7 +68,6 @@ public class VoiceHelper  {
             speechRecognizer.cancel();
             speechRecognizer.destroy();
         }
-        stopping.close();
         voiceMasterClass.getMasterInterfaceVoice().stopListening();
     }
 
