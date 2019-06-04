@@ -113,12 +113,12 @@ public class VoiceHelper  {
                 @Override
                 public void onReadyForSpeech(Bundle bundle) {
                     isSpeechRecognizerRunning  = true;
-                    listening.data(null,null);
+//                    listening.data(null,null);
                 }
 
                 @Override
                 public void onBeginningOfSpeech() {
-                    listening.data(null,null);
+//                    listening.data(null,null);
                 }
 
                 @Override
@@ -157,16 +157,20 @@ public class VoiceHelper  {
                         Log.d("VOICE_TAG",a+": "+confArr[i]);
                         i++;
                     }
-                    listening.data(null,msg);
+                    Log.e("Result !!!"," "+msg);
+//                    listening.data(null,msg);
+                    Log.e("Processing..."," "+msg);
 
-                    processing.run(msg);
+//                    processing.run(msg);
                 }
 
                 @Override
                 public void onPartialResults(Bundle bundle) {
                     List<String> arrayList = (List<String>) bundle.get("results_recognition");
                     String msg = arrayList.get(0);
-                    listening.data(msg,null);
+                    Log.e("Partial..."," "+msg);
+
+//                    listening.data(msg,null);
                 }
 
                 @Override
