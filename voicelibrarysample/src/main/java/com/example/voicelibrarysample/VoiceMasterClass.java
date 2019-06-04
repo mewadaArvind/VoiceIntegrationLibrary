@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.voicelibrarysample.VoiceHelper.VoiceHelper;
 
-import java.util.Date;
+
 
 /**
 * Created by Mewada Arvind on 1 June 2019
@@ -20,7 +20,7 @@ public class VoiceMasterClass {
     private int stateType;
     private Context context;
     private MasterInterfaceVoice masterInterfaceVoice;
-    private VoiceHelper voiceHelper;
+    private static VoiceHelper voiceHelper;
 
     /**
      * voice master class initialisation
@@ -36,35 +36,35 @@ public class VoiceMasterClass {
     /**
      * start listening call inside method
      * */
-    public  void startListening(){
+    public  static void startListening(){
         voiceHelper.startListeningMain();
     }
 
     /**
      * stop listening call inside method
      * */
-    public  void stopListening(){
+    public  static void stopListening(){
         voiceHelper.stopListeningMain();
     }
 
     /**
      *  start Speaking call inside method
      * */
-    public  void startSpeaking(String text){
+    public  static void startSpeaking(String text){
         voiceHelper.startSpeakingMain(text,"utteranceId");
     }
 
     /**
      * destroy voice helper object
      * */
-    public void destroy(){
-        this.voiceHelper.destroyMain();
+    public static void destroy(){
+        voiceHelper.destroyMain();
     }
 
     /**
      * stop speaking call inside method
      * */
-    public  void stopSpeaking(){
+    public static void stopSpeaking(){
         voiceHelper.stopSpeakingMain();
     }
 
