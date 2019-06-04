@@ -33,6 +33,9 @@ public class VoiceMasterClass {
         this.voiceHelper = new VoiceHelper(context,this);
     }
 
+    public VoiceMasterClass() {
+    }
+
     /**
      * start listening call inside method
      * */
