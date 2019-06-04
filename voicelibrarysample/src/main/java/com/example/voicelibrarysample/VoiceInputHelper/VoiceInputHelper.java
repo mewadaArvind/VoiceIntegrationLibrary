@@ -8,10 +8,13 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import com.example.voicelibrarysample.VoiceHelper.Listening;
+import com.example.voicelibrarysample.VoiceHelper.Processing;
 import com.example.voicelibrarysample.VoiceHelper.StopListening;
 import com.example.voicelibrarysample.VoiceHelper.VoiceUIHelper;
 
@@ -33,27 +36,28 @@ public class VoiceInputHelper {
     private SpeechRecognizer speechRecognizer = null;
     private TextToSpeech tts = null;
     private Listening listening;
+    private Processing processing;
     private StopListening stopping;
+    private UtteranceProgressListener utteranceProgressListener;
     private boolean isSpeechRecognizerRunning;
     private Context context;
     private VoiceUIHelper voiceUIHelper;
 
-    /**
-     * constructor voice input helper
-     * @Param is voice ModuleOn
-     * @Param listening
-     * @Param stopListening
-     * */
-    public VoiceInputHelper(Context context, Listening listening
-            , StopListening stopping, EditText editText){
+    public VoiceInputHelper(Context context, boolean isVoiceModuleON, Listening listening
+            , Processing processing, StopListening stopping
+            , final UtteranceProgressListener utteranceProgressListener
+            , EditText editText){
         this.context = context;
+        this.voiceUIHelper = new VoiceUIHelper(context,editText,false);
         this.listening = listening;
-        this.voiceUIHelper = new VoiceUIHelper(context,editText, true);
+        this.processing = processing;
         this.stopping = stopping;
+        this.utteranceProgressListener = utteranceProgressListener;
         tts = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
                 if (status == TextToSpeech.SUCCESS) {
+                    tts.setOnUtteranceProgressListener(utteranceProgressListener);
                     tts.setPitch(0.8f);
                     tts.setSpeechRate(1f);
                     Locale locale = new Locale("en","IN");
@@ -72,10 +76,6 @@ public class VoiceInputHelper {
         speechRecognizer = createSpeechRecognizer(context);
     }
 
-    /**
-     * currently speaking
-     * on or off checked
-     * */
     public boolean isCurrentlySpeaking(){
         if(tts != null && tts.isSpeaking()){
             return true;
@@ -84,18 +84,10 @@ public class VoiceInputHelper {
         }
     }
 
-    /**
-     * currently Listening
-     * on or off checked
-     * */
     public boolean isCurrentlyListening(){
         return isSpeechRecognizerRunning;
     }
 
-    /**
-     * currently start speaking
-     * on or off checked
-     * */
     public void startSpeaking(String msg, String utteranceID){
         tts.speak(msg,TextToSpeech.QUEUE_FLUSH,null,utteranceID);
     }
@@ -114,6 +106,7 @@ public class VoiceInputHelper {
             speechRecognizer.destroy();
         }
         stopping.close();
+        voiceUIHelper.setValueInEditText("");
     }
 
     public void startListening(){
@@ -127,12 +120,14 @@ public class VoiceInputHelper {
                 @Override
                 public void onReadyForSpeech(Bundle bundle) {
                     isSpeechRecognizerRunning  =true;
-                    listening.data("Listening...",null);
+                    listening.data(null,null);
+                    voiceUIHelper.setValueInEditText("");
                 }
 
                 @Override
                 public void onBeginningOfSpeech() {
-                    listening.data("Listening...",null);
+                    listening.data(null,null);
+                    voiceUIHelper.setValueInEditText("");
                 }
 
                 @Override
@@ -172,12 +167,14 @@ public class VoiceInputHelper {
                         i++;
                     }
                     listening.data(null,msg);
+                    voiceUIHelper.setValueInEditText(msg);
                 }
 
                 @Override
                 public void onPartialResults(Bundle bundle) {
                     List<String> arrayList = (List<String>) bundle.get("results_recognition");
                     String msg = arrayList.get(0);
+                    voiceUIHelper.setValueInEditText(msg);
                     listening.data(msg,null);
                 }
 
