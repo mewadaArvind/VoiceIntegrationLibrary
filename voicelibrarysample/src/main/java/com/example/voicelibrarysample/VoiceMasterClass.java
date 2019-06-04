@@ -38,13 +38,7 @@ public class VoiceMasterClass {
      * start listening call inside method
      * */
     public   void startListening(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                voiceHelper.startListeningMain();
-            }
-        });
-
+        voiceHelper.startListeningMain();
     }
 
     /**
