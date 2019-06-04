@@ -132,13 +132,13 @@ public class VoiceHelper  {
 
                 @Override
                 public void onEndOfSpeech() {
-                    stopping.close();
+                    voiceMasterClass.stopListening();
                     isSpeechRecognizerRunning = false;
                 }
 
                 @Override
                 public void onError(int i) {
-                    stopping.close();
+                    voiceMasterClass.stopListening();
                     isSpeechRecognizerRunning = false;
                 }
 
