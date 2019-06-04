@@ -1,8 +1,7 @@
-package com.example.voicelibrarysample.VoiceInputHelper;
+package com.example.voicelibrarysample.VoiceHelper;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
@@ -11,27 +10,16 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 
-import com.example.voicelibrarysample.VoiceHelper.Listening;
-import com.example.voicelibrarysample.VoiceHelper.Processing;
-import com.example.voicelibrarysample.VoiceHelper.StopListening;
-import com.example.voicelibrarysample.VoiceHelper.VoiceUIHelper;
+
+
 
 import java.util.List;
 import java.util.Locale;
 
 import static android.speech.SpeechRecognizer.createSpeechRecognizer;
 
-/**
- * Created By Mewada Arvind on 4-06-2019
- * Voice Input Helper call
- * listening
- * stop listening
- * is speech Recognizer
- * context
- * */
-public class VoiceInputHelper {
+public class VoiceHelper {
 
     private SpeechRecognizer speechRecognizer = null;
     private TextToSpeech tts = null;
@@ -43,7 +31,7 @@ public class VoiceInputHelper {
     private Context context;
     private VoiceUIHelper voiceUIHelper;
 
-    public VoiceInputHelper(Context context, Listening listening
+    public VoiceHelper(Context context, boolean isVoiceModuleON, Listening listening
             , Processing processing, StopListening stopping
             , final UtteranceProgressListener utteranceProgressListener
             , EditText editText){
@@ -167,6 +155,7 @@ public class VoiceInputHelper {
                         i++;
                     }
                     listening.data(null,msg);
+                    processing.run(msg);
                     voiceUIHelper.setValueInEditText(msg);
                 }
 
