@@ -8,15 +8,15 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
+import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.EditText;
 
 
 
 import com.example.voicelibrarysample.VoiceMasterClass;
 
 import java.util.List;
-import java.util.Locale;
+
 
 import static android.speech.SpeechRecognizer.createSpeechRecognizer;
 
@@ -24,9 +24,6 @@ public class VoiceHelper  {
 
     private SpeechRecognizer speechRecognizer = null;
     private TextToSpeech tts = null;
-    private Listening listening;
-    private Processing processing;
-    private StopListening stopping;
     private UtteranceProgressListener utteranceProgressListener;
     private boolean isSpeechRecognizerRunning;
     private Context context;
@@ -68,26 +65,41 @@ public class VoiceHelper  {
             speechRecognizer.cancel();
             speechRecognizer.destroy();
         }
+        /*stop close listening*/
+        new StopListening() {
+            @Override
+            public void close() {
+//                .close()
+            }
+        };
         voiceMasterClass.getMasterInterfaceVoice().stopListening();
     }
 
     public void startListeningMain(){
-        if (speechRecognizer != null)
-        {
+        if (speechRecognizer != null) {
             speechRecognizer.stopListening();
             speechRecognizer.cancel();
             speechRecognizer.destroy();
-
             speechRecognizer.setRecognitionListener(new RecognitionListener() {
                 @Override
                 public void onReadyForSpeech(Bundle bundle) {
                     isSpeechRecognizerRunning  = true;
-//                    listening.data(null,null);
+                    new Listening() {
+                        @Override
+                        public void data(@Nullable String partialResult, @Nullable String fullResult) {
+
+                        }
+                    };
                 }
 
                 @Override
                 public void onBeginningOfSpeech() {
-//                    listening.data(null,null);
+                    new Listening() {
+                        @Override
+                        public void data(@Nullable String partialResult, @Nullable String fullResult) {
+
+                        }
+                    };
                 }
 
                 @Override
@@ -101,13 +113,24 @@ public class VoiceHelper  {
 
                 @Override
                 public void onEndOfSpeech() {
-                    voiceMasterClass.stopListening();
+                   new StopListening() {
+                       @Override
+                       public void close() {
+
+                       }
+                   };
                     isSpeechRecognizerRunning = false;
                 }
 
                 @Override
                 public void onError(int i) {
                     voiceMasterClass.stopListening();
+                    new StopListening() {
+                        @Override
+                        public void close() {
+
+                        }
+                    };
                     isSpeechRecognizerRunning = false;
                 }
 
@@ -126,11 +149,21 @@ public class VoiceHelper  {
                         Log.d("VOICE_TAG",a+": "+confArr[i]);
                         i++;
                     }
-                    Log.e("Result !!!"," "+msg);
-//                    listening.data(null,msg);
-                    Log.e("Processing..."," "+msg);
 
-//                    processing.run(msg);
+                    new Listening() {
+                        @Override
+                        public void data(@Nullable String partialResult, @Nullable String fullResult) {
+                            Log.e("Final...",""+fullResult);
+//                                    .data(null, fullResult);
+                         new Processing() {
+                             @Override
+                             public void run(String finalMessage) {
+//                                    .run(finalMessage);
+                             }
+                         };
+                        }
+                    };
+
                 }
 
                 @Override
@@ -138,8 +171,12 @@ public class VoiceHelper  {
                     List<String> arrayList = (List<String>) bundle.get("results_recognition");
                     String msg = arrayList.get(0);
                     Log.e("Partial..."," "+msg);
-
-//                    listening.data(msg,null);
+                     new Listening() {
+                         @Override
+                         public void data(@Nullable String partialResult, @Nullable String fullResult) {
+//                            .data(partialResult,null);
+                         }
+                     };
                 }
 
                 @Override

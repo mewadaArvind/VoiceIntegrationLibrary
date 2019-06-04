@@ -1,6 +1,7 @@
 package com.example.voicelibrarysample;
 
 import android.content.Context;
+import android.widget.TextView;
 
 import com.example.voicelibrarysample.VoiceHelper.VoiceHelper;
 
@@ -15,7 +16,7 @@ import com.example.voicelibrarysample.VoiceHelper.VoiceHelper;
 public class VoiceMasterClass {
 
 
-    private String currentStateType;
+    private stateType currentStateType;
     private Context context;
     private MasterInterfaceVoice masterInterfaceVoice;
     private  VoiceHelper voiceHelper;
@@ -73,11 +74,11 @@ public class VoiceMasterClass {
         return masterInterfaceVoice;
     }
 
-    public String getCurrentStateType() {
+    public stateType getCurrentStateType() {
         return currentStateType;
     }
 
-    public void setCurrentStateType(String currentStateType) {
+    public void setCurrentStateType(stateType currentStateType) {
         this.currentStateType = currentStateType;
     }
 }
