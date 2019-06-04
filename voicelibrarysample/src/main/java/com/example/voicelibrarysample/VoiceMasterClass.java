@@ -14,13 +14,13 @@ import com.example.voicelibrarysample.VoiceHelper.VoiceHelper;
  * */
 public class VoiceMasterClass {
 
-    private enum state {
+    private enum stateEvents {
         PROCESSING, LISTENING, SPEAKING, REST; //ENUM
     }
     private int stateType;
     private Context context;
     private MasterInterfaceVoice masterInterfaceVoice;
-    private static VoiceHelper voiceHelper;
+    private  VoiceHelper voiceHelper;
 
     /**
      * voice master class initialisation
@@ -33,42 +33,40 @@ public class VoiceMasterClass {
         this.voiceHelper = new VoiceHelper(context,this);
     }
 
-    public VoiceMasterClass() {
-    }
 
     /**
      * start listening call inside method
      * */
-    public  static void startListening(){
+    public   void startListening(){
         voiceHelper.startListeningMain();
     }
 
     /**
      * stop listening call inside method
      * */
-    public  static void stopListening(){
+    public   void stopListening(){
         voiceHelper.stopListeningMain();
     }
 
     /**
      *  start Speaking call inside method
      * */
-    public  static void startSpeaking(String text){
+    public   void startSpeaking(String text){
         voiceHelper.startSpeakingMain(text,"utteranceId");
     }
 
     /**
      * destroy voice helper object
      * */
-    public static void destroy(){
+    public  void destroy(){
         voiceHelper.destroyMain();
     }
 
     /**
      * stop speaking call inside method
      * */
-    public static void stopSpeaking(){
-        voiceHelper.stopSpeakingMain();
+    public  void stopSpeaking(){
+        this.voiceHelper.stopSpeakingMain();
     }
 
     public MasterInterfaceVoice getMasterInterfaceVoice() {
