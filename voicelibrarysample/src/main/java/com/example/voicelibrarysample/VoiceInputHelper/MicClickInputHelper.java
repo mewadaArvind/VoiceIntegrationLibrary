@@ -29,19 +29,7 @@ public class MicClickInputHelper {
         startSpeakingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dexter.withActivity(activity)
-                        .withPermission(Manifest.permission.RECORD_AUDIO)
-                        .withListener(new PermissionListener() {
-                            @Override public void onPermissionGranted(PermissionGrantedResponse response) {
-                                voiceInputHelper.startListening();
-                            }
-                            @Override public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
-                            @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}
-                        }).check();
-                if(voiceInputHelper.isCurrentlySpeaking() || voiceInputHelper.isCurrentlyListening()) {
-                    voiceInputHelper.stopSpeaking();
-                    voiceInputHelper.stopListening();
-                }
+                voiceInputHelper.startListening();
             }
         });
     }
