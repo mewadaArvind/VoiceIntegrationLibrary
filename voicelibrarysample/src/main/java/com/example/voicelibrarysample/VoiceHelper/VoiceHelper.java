@@ -146,6 +146,7 @@ public class VoiceHelper  implements StopListening, Processing, Listening{
             speechRecognizer.startListening(recognizerIntent);
             voiceMasterClass.getMasterInterfaceVoice().startedListening();
         }
+        startListeningMain();
     }
 
     public void destroyMain(){
