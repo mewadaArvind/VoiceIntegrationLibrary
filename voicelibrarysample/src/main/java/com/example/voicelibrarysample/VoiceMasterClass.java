@@ -14,14 +14,14 @@ import com.example.voicelibrarysample.VoiceHelper.VoiceHelper;
  * */
 public class VoiceMasterClass {
 
-    private enum stateEvents {
-        PROCESSING, LISTENING, SPEAKING, REST; //ENUM
-    }
-    private int stateType;
+
+    private stateType currentStateType;
     private Context context;
     private MasterInterfaceVoice masterInterfaceVoice;
     private  VoiceHelper voiceHelper;
-
+    private enum stateType {
+        PROCESSING, LISTENING, SPEAKING, REST; //ENUM
+    }
     /**
      * voice master class initialisation
      * @Param Context
@@ -73,12 +73,11 @@ public class VoiceMasterClass {
         return masterInterfaceVoice;
     }
 
-    public int getStateType() {
-        return stateType;
+    public stateType getCurrentStateType() {
+        return currentStateType;
     }
 
-    public void setStateType(int stateType) {
-        this.stateType = stateType;
+    public void setCurrentStateType(stateType currentStateType) {
+        this.currentStateType = currentStateType;
     }
-
 }

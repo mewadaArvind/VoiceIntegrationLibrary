@@ -14,5 +14,5 @@ public interface ReceivedFinalAllMaster {
     /**
      * stop all listening process
      * */
-    void stopAll();
+    void stopListening();
 }

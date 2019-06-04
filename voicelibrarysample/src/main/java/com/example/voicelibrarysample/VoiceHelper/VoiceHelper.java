@@ -12,7 +12,7 @@ import android.util.Log;
 import android.widget.EditText;
 
 
-import com.example.voicelibrarysample.MasterInterfaceVoice;
+
 import com.example.voicelibrarysample.VoiceMasterClass;
 
 import java.util.List;
@@ -98,7 +98,7 @@ public class VoiceHelper  {
             speechRecognizer.destroy();
         }
         stopping.close();
-        voiceMasterClass.getMasterInterfaceVoice().stopAll();
+        voiceMasterClass.getMasterInterfaceVoice().stopListening();
     }
 
     public void startListeningMain(){

@@ -17,5 +17,5 @@ public interface MasterInterfaceVoice extends StartingListeningMaster, LiveTextC
     /**
      * error if something wrong
      * */
-    void errorShow();
+    void error();
 }
