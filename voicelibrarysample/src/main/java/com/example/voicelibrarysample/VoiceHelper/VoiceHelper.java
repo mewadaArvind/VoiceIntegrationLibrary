@@ -30,14 +30,17 @@ public class VoiceHelper  {
     private UtteranceProgressListener utteranceProgressListener;
     private boolean isSpeechRecognizerRunning;
     private Context context;
-    private VoiceUIHelper voiceUIHelper;
+    private VoiceMasterClass voiceMasterClass;
 
-    public VoiceHelper(Context context, boolean isVoiceModuleON, Listening listening
+    public VoiceHelper(Context context, VoiceMasterClass voiceMasterClass){
+        this.voiceMasterClass = voiceMasterClass;
+        this.context = context;
+    }
+    public VoiceHelper(Context context, Listening listening
             , Processing processing, StopListening stopping
             , final UtteranceProgressListener utteranceProgressListener
             , EditText editText){
         this.context = context;
-        this.voiceUIHelper = new VoiceUIHelper(context,editText,false);
         this.listening = listening;
         this.processing = processing;
         this.stopping = stopping;
@@ -95,7 +98,7 @@ public class VoiceHelper  {
             speechRecognizer.destroy();
         }
         stopping.close();
-        voiceUIHelper.setValueInEditText("");
+        voiceMasterClass.getMasterInterfaceVoice().stopAll();
     }
 
     public void startListeningMain(){
@@ -110,13 +113,11 @@ public class VoiceHelper  {
                 public void onReadyForSpeech(Bundle bundle) {
                     isSpeechRecognizerRunning  = true;
                     listening.data(null,null);
-                    voiceUIHelper.setValueInEditText("");
                 }
 
                 @Override
                 public void onBeginningOfSpeech() {
                     listening.data(null,null);
-                    voiceUIHelper.setValueInEditText("");
                 }
 
                 @Override
@@ -158,14 +159,12 @@ public class VoiceHelper  {
                     listening.data(null,msg);
 
                     processing.run(msg);
-                    voiceUIHelper.setValueInEditText(msg);
                 }
 
                 @Override
                 public void onPartialResults(Bundle bundle) {
                     List<String> arrayList = (List<String>) bundle.get("results_recognition");
                     String msg = arrayList.get(0);
-                    voiceUIHelper.setValueInEditText(msg);
                     listening.data(msg,null);
                 }
 
@@ -181,9 +180,8 @@ public class VoiceHelper  {
             recognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS,true);
             recognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, (context).getPackageName());
             speechRecognizer.startListening(recognizerIntent);
-
+            voiceMasterClass.getMasterInterfaceVoice().startedListening();
         }
-        startListeningMain();
     }
 
     public void destroyMain(){
@@ -191,47 +189,6 @@ public class VoiceHelper  {
             tts.stop();
             tts.shutdown();
         }
+        this.voiceMasterClass.getMasterInterfaceVoice().destroy();
     }
-
-    public VoiceMasterClass masterClass = new VoiceMasterClass(context, new MasterInterfaceVoice() {
-        @Override
-        public void destroy() {
-            destroyMain();
-        }
-
-        @Override
-        public void errorShow() {
-
-        }
-
-        @Override
-        public void finalResultShow() {
-
-        }
-
-        @Override
-        public void liveTextChangesShow() {
-
-        }
-
-        @Override
-        public void doNetwokingProcess() {
-
-        }
-
-        @Override
-        public void recievedProcess() {
-
-        }
-
-        @Override
-        public void stopAll() {
-
-        }
-
-        @Override
-        public void startedListening() {
-            startListeningMain();
-        }
-    });
 }
