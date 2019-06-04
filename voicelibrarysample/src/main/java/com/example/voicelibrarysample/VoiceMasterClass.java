@@ -15,7 +15,7 @@ import com.example.voicelibrarysample.VoiceHelper.VoiceHelper;
 public class VoiceMasterClass {
 
 
-    private stateType currentStateType;
+    private String currentStateType;
     private Context context;
     private MasterInterfaceVoice masterInterfaceVoice;
     private  VoiceHelper voiceHelper;
@@ -73,11 +73,11 @@ public class VoiceMasterClass {
         return masterInterfaceVoice;
     }
 
-    public stateType getCurrentStateType() {
+    public String getCurrentStateType() {
         return currentStateType;
     }
 
-    public void setCurrentStateType(stateType currentStateType) {
+    public void setCurrentStateType(String currentStateType) {
         this.currentStateType = currentStateType;
     }
 }
