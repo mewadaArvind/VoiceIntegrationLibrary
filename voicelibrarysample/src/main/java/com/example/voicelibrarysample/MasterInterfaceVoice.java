@@ -11,7 +11,7 @@ package com.example.voicelibrarysample;
  * network interface extends all
  * */
 public interface MasterInterfaceVoice extends StaringListeningMaster, LiveTextChangesMaster
-        ,FinalResultMaster, NetworkCallAfterFinalMessageRecieved, ReceivedFinalAllMaster{
+        ,FinalResultMaster, NetworkCallAfterFinalMessageRecieved, ReceivedFinalAllMaster, Destroy {
     /**
      * error if something wrong
      * */

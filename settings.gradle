@@ -1,1 +1,1 @@
-include ':app', ':voicelibrarysample'
+include  ':voicelibrarysample'
