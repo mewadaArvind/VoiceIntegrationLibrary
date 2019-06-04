@@ -12,14 +12,15 @@ import android.util.Log;
 import android.widget.EditText;
 
 
-
+import com.example.voicelibrarysample.MasterInterfaceVoice;
+import com.example.voicelibrarysample.VoiceMasterClass;
 
 import java.util.List;
 import java.util.Locale;
 
 import static android.speech.SpeechRecognizer.createSpeechRecognizer;
 
-public class VoiceHelper {
+public class VoiceHelper  {
 
     private SpeechRecognizer speechRecognizer = null;
     private TextToSpeech tts = null;
@@ -64,7 +65,7 @@ public class VoiceHelper {
         speechRecognizer = createSpeechRecognizer(context);
     }
 
-    public boolean isCurrentlySpeaking(){
+    public boolean isCurrentlySpeakingMain(){
         if(tts != null && tts.isSpeaking()){
             return true;
         }else{
@@ -72,22 +73,22 @@ public class VoiceHelper {
         }
     }
 
-    public boolean isCurrentlyListening(){
+    public boolean isCurrentlyListeningMain(){
         return isSpeechRecognizerRunning;
     }
 
-    public void startSpeaking(String msg, String utteranceID){
+    public void startSpeakingMain(String msg, String utteranceID){
         tts.speak(msg,TextToSpeech.QUEUE_FLUSH,null,utteranceID);
     }
 
-    public void stopSpeaking(){
+    public void stopSpeakingMain(){
         isSpeechRecognizerRunning = false;
         if(tts != null && tts.isSpeaking()){
             tts.stop();
         }
     }
 
-    public void stopListening(){
+    public void stopListeningMain(){
         if(speechRecognizer != null){
             speechRecognizer.stopListening();
             speechRecognizer.cancel();
@@ -97,7 +98,7 @@ public class VoiceHelper {
         voiceUIHelper.setValueInEditText("");
     }
 
-    public void startListening(){
+    public void startListeningMain(){
         if (speechRecognizer != null)
         {
             speechRecognizer.stopListening();
@@ -107,7 +108,7 @@ public class VoiceHelper {
             speechRecognizer.setRecognitionListener(new RecognitionListener() {
                 @Override
                 public void onReadyForSpeech(Bundle bundle) {
-                    isSpeechRecognizerRunning  =true;
+                    isSpeechRecognizerRunning  = true;
                     listening.data(null,null);
                     voiceUIHelper.setValueInEditText("");
                 }
@@ -155,6 +156,7 @@ public class VoiceHelper {
                         i++;
                     }
                     listening.data(null,msg);
+
                     processing.run(msg);
                     voiceUIHelper.setValueInEditText(msg);
                 }
@@ -179,13 +181,57 @@ public class VoiceHelper {
             recognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS,true);
             recognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, (context).getPackageName());
             speechRecognizer.startListening(recognizerIntent);
+
         }
+        startListeningMain();
     }
 
-    public void destroy(){
+    public void destroyMain(){
         if (tts != null) {
             tts.stop();
             tts.shutdown();
         }
     }
+
+    public VoiceMasterClass masterClass = new VoiceMasterClass(context, new MasterInterfaceVoice() {
+        @Override
+        public void destroy() {
+            destroyMain();
+        }
+
+        @Override
+        public void errorShow() {
+
+        }
+
+        @Override
+        public void finalResultShow() {
+
+        }
+
+        @Override
+        public void liveTextChangesShow() {
+
+        }
+
+        @Override
+        public void doNetwokingProcess() {
+
+        }
+
+        @Override
+        public void recievedProcess() {
+
+        }
+
+        @Override
+        public void stopAll() {
+
+        }
+
+        @Override
+        public void startedListening() {
+            startListeningMain();
+        }
+    });
 }

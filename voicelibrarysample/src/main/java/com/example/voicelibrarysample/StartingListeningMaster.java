@@ -5,7 +5,7 @@ package com.example.voicelibrarysample;
  * starting listening process
  * handle all states
  * */
-public interface StaringListeningMaster {
+public interface StartingListeningMaster {
     /**
      * starting listening process
      * */

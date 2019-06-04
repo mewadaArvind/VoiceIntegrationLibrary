@@ -10,13 +10,12 @@ import android.content.Context;
 public class VoiceMasterClass {
 
     private int  PROCESSING, LISTENING, SPEAKING, REST;
-
     /**
      * voice master class initialisation
      * @Param Context
      * @Param MasterInterface
      * */
-    public  VoiceMasterClass(Context context,MasterInterfaceVoice masterInterfaceVoice) { }
+    public  VoiceMasterClass(Context context, MasterInterfaceVoice masterInterfaceVoice) { }
 
 
     /**
