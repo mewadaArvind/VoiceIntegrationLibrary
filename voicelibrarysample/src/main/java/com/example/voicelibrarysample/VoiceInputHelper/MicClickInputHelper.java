@@ -30,6 +30,10 @@ public class MicClickInputHelper {
             @Override
             public void onClick(View v) {
                 voiceInputHelper.startListening();
+                if(voiceInputHelper.isCurrentlySpeaking() || voiceInputHelper.isCurrentlyListening()){
+                    voiceInputHelper.stopSpeaking();
+                    voiceInputHelper.stopListening();
+                }
             }
         });
     }
