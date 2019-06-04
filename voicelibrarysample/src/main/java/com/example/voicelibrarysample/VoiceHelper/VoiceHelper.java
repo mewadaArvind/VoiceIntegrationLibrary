@@ -35,6 +35,7 @@ public class VoiceHelper  {
     public VoiceHelper(Context context, VoiceMasterClass voiceMasterClass){
         this.voiceMasterClass = voiceMasterClass;
         this.context = context;
+        speechRecognizer = createSpeechRecognizer(context);
     }
     public VoiceHelper(Context context, Listening listening
             , Processing processing, StopListening stopping
