@@ -97,9 +97,7 @@ public class VoiceInputHelper {
      * on or off checked
      * */
     public void startSpeaking(String msg, String utteranceID){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            tts.speak(msg,TextToSpeech.QUEUE_FLUSH,null,utteranceID);
-        }
+        tts.speak(msg,TextToSpeech.QUEUE_FLUSH,null,utteranceID);
     }
 
     public void stopSpeaking(){

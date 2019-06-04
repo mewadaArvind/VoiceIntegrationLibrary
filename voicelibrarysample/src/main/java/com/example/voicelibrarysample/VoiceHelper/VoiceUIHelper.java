@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 
 public class VoiceUIHelper {
+
     private EditText editText;
     private Context context;
     private boolean isAppendTextON;
