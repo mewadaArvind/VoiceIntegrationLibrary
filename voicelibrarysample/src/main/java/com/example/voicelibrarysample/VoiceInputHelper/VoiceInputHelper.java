@@ -10,10 +10,10 @@ import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 
 import com.example.voicelibrarysample.VoiceHelper.Listening;
 import com.example.voicelibrarysample.VoiceHelper.StopListening;
+import com.example.voicelibrarysample.VoiceHelper.VoiceUIHelper;
 
 import java.util.List;
 import java.util.Locale;
@@ -36,6 +36,7 @@ public class VoiceInputHelper {
     private StopListening stopping;
     private boolean isSpeechRecognizerRunning;
     private Context context;
+    private VoiceUIHelper voiceUIHelper;
 
     /**
      * constructor voice input helper
@@ -43,10 +44,11 @@ public class VoiceInputHelper {
      * @Param listening
      * @Param stopListening
      * */
-    public VoiceInputHelper(Context context, boolean isVoiceModuleON, Listening listening
-            , StopListening stopping){
+    public VoiceInputHelper(Context context, Listening listening
+            , StopListening stopping, EditText editText){
         this.context = context;
         this.listening = listening;
+        this.voiceUIHelper = new VoiceUIHelper(context,editText, true);
         this.stopping = stopping;
         tts = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
             @Override
