@@ -43,7 +43,7 @@ public class VoiceInputHelper {
     private Context context;
     private VoiceUIHelper voiceUIHelper;
 
-    public VoiceInputHelper(Context context, boolean isVoiceModuleON, Listening listening
+    public VoiceInputHelper(Context context, Listening listening
             , Processing processing, StopListening stopping
             , final UtteranceProgressListener utteranceProgressListener
             , EditText editText){
