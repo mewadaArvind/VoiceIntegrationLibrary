@@ -19,7 +19,7 @@ public class VoiceMasterClass implements VoiceStatusInterface {
     private MasterInterfaceVoice masterInterfaceVoice;
     private VoiceHelper voiceHelper;
     public EventStatus eventStatus;
-    public enum EventStatus {
+    public static enum EventStatus {
         PROCESSING, LISTENING, SPEAKING, REST; //ENUM
     }
 
