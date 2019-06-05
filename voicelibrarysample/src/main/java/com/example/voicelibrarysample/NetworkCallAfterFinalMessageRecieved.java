@@ -10,4 +10,14 @@ public interface NetworkCallAfterFinalMessageRecieved {
    * all network process
    */
     void doNetwokingProcess();
+
+    /**
+     * received process action perform
+     * */
+    void recievedProcess();
+
+    /**
+     * stop all listening process
+     * */
+    void stopedListening();
 }

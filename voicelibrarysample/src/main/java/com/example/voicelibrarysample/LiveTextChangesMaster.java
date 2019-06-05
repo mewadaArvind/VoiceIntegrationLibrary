@@ -9,6 +9,6 @@ public interface LiveTextChangesMaster {
     /**
      *live text change show
      * */
-    void liveTextChangesShow(String msg);
+    void liveTextChangesShow(String partialResult);
 
 }

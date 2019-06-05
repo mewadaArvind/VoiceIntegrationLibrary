@@ -1,7 +1,5 @@
 package com.example.voicelibrarysample;
 
-import com.example.voicelibrarysample.VoiceHelper.VoiceHelper;
-
 /**
  * Created by Mewada Arvind on 1 June 2019
  * master interface integration all voice
@@ -13,7 +11,7 @@ import com.example.voicelibrarysample.VoiceHelper.VoiceHelper;
  * network interface extends all
  * */
 public interface MasterInterfaceVoice extends StartingListeningMaster, LiveTextChangesMaster
-        ,FinalResultMaster, NetworkCallAfterFinalMessageRecieved, ReceivedFinalAllMaster, Destroy {
+        ,FinalResultMaster, NetworkCallAfterFinalMessageRecieved, Destroy {
     /**
      * error if something wrong
      * */

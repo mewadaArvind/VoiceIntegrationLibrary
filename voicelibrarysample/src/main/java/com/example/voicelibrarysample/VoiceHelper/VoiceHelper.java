@@ -10,7 +10,7 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 
 import com.example.voicelibrarysample.MasterInterfaceVoice;
-import com.example.voicelibrarysample.VoiceMasterClass;import java.util.List;
+import java.util.List;
 import static android.speech.SpeechRecognizer.createSpeechRecognizer;
 
 
@@ -58,7 +58,7 @@ public class VoiceHelper  {
             speechRecognizer.cancel();
             speechRecognizer.destroy();
         }
-        masterInterfaceVoice.stopListening();
+        masterInterfaceVoice.stopedListening();
     }
 
     public void startListeningMain() {
@@ -88,14 +88,14 @@ public class VoiceHelper  {
 
                 @Override
                 public void onEndOfSpeech() {
-                    masterInterfaceVoice.stopListening();
+                    masterInterfaceVoice.startedListening();
                     isSpeechRecognizerRunning = false;
 
                 }
 
                 @Override
                 public void onError(int i) {
-                    masterInterfaceVoice.stopListening();
+                    masterInterfaceVoice.stopedListening();
                     isSpeechRecognizerRunning = false;
                 }
 

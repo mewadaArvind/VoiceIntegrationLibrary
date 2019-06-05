@@ -9,5 +9,5 @@ public interface FinalResultMaster {
     /**
      * final test show if success
      * */
-    void finalResultShow(String msg);
+    void finalResultShow(String finalMessage);
 }
