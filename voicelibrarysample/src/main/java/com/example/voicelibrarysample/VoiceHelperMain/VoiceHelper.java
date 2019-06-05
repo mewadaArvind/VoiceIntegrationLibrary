@@ -22,7 +22,6 @@ public class VoiceHelper  {
 
     private SpeechRecognizer speechRecognizer = null;
     private TextToSpeech tts = null;
-    private boolean isSpeechRecognizerRunning;
     private Context context;
     private MasterInterfaceVoice masterInterfaceVoice;
     private VoiceStatusInterface voiceStatusInterface;
@@ -36,18 +35,6 @@ public class VoiceHelper  {
     }
 
 
-    public boolean isCurrentlySpeakingMain() {
-        if (tts != null && tts.isSpeaking()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean isCurrentlyListeningMain() {
-        return isSpeechRecognizerRunning;
-    }
-
     public void startSpeakingMain(String msg, String utteranceID) {
         tts.speak(msg, TextToSpeech.QUEUE_FLUSH, null, utteranceID);
         voiceStatusInterface.VoiceStatusSpeaking();
@@ -55,7 +42,6 @@ public class VoiceHelper  {
     }
 
     public void stopSpeakingMain() {
-        isSpeechRecognizerRunning = false;
         if (tts != null && tts.isSpeaking()) {
             tts.stop();
             masterInterfaceVoice.stopedListening();
@@ -82,7 +68,6 @@ public class VoiceHelper  {
             speechRecognizer.setRecognitionListener(new RecognitionListener() {
                 @Override
                 public void onReadyForSpeech(Bundle bundle) {
-                    isSpeechRecognizerRunning = true;
                 }
 
                 @Override
@@ -102,14 +87,11 @@ public class VoiceHelper  {
                 @Override
                 public void onEndOfSpeech() {
                     masterInterfaceVoice.startedListening();
-                    isSpeechRecognizerRunning = false;
-
                 }
 
                 @Override
                 public void onError(int i) {
                     masterInterfaceVoice.stopedListening();
-                    isSpeechRecognizerRunning = false;
                 }
 
                 @Override
