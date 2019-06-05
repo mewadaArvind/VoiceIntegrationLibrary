@@ -70,14 +70,10 @@ public class VoiceHelper  {
                 @Override
                 public void onReadyForSpeech(Bundle bundle) {
                     isSpeechRecognizerRunning = true;
-//                    data(null, null);
-//                    listening.data(null,null);
                 }
 
                 @Override
                 public void onBeginningOfSpeech() {
-//                    data(null, null);
-//                    listening.data(null,null);
 
                 }
 
@@ -92,9 +88,6 @@ public class VoiceHelper  {
 
                 @Override
                 public void onEndOfSpeech() {
-//                    close();
-
-//                    stopListening.close();
                     masterInterfaceVoice.stopListening();
                     isSpeechRecognizerRunning = false;
 
@@ -102,8 +95,6 @@ public class VoiceHelper  {
 
                 @Override
                 public void onError(int i) {
-//                    close();
-//                    stopListening.close();
                     masterInterfaceVoice.stopListening();
                     isSpeechRecognizerRunning = false;
                 }
@@ -124,18 +115,13 @@ public class VoiceHelper  {
                         i++;
                     }
                     Log.e("Final...",msg);
-//                    listening.data(null, msg);
                     masterInterfaceVoice.finalResultShow(msg);
-//                    data(null, msg);
-
                 }
 
                 @Override
                 public void onPartialResults(Bundle bundle) {
                     List<String> arrayList = (List<String>) bundle.get("results_recognition");
                     String msg = arrayList.get(0);
-//                    data(msg, null);
-//                    listening.data(msg,null);
                     masterInterfaceVoice.liveTextChangesShow(msg);
                 }
 

@@ -1,8 +1,6 @@
 package com.example.voicelibrarysample;
 
 import android.content.Context;
-import android.widget.TextView;
-
 import com.example.voicelibrarysample.VoiceHelper.VoiceHelper;
 
 
@@ -15,7 +13,6 @@ import com.example.voicelibrarysample.VoiceHelper.VoiceHelper;
  * */
 public class VoiceMasterClass {
 
-
     private Context context;
     private MasterInterfaceVoice masterInterfaceVoice;
     private  VoiceHelper voiceHelper;
@@ -24,7 +21,6 @@ public class VoiceMasterClass {
     private enum EventStatus {
         PROCESSING, LISTENING, SPEAKING, REST; //ENUM
     }
-
 
     /**
      * voice master class initialisation
@@ -36,7 +32,6 @@ public class VoiceMasterClass {
         this.masterInterfaceVoice = masterInterfaceVoice;
         this.voiceHelper = new VoiceHelper(context,masterInterfaceVoice);
     }
-
 
     /**
      * start listening call inside method
