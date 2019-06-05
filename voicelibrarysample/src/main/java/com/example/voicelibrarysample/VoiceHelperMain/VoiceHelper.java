@@ -11,6 +11,8 @@ import android.util.Log;
 import android.widget.EditText;
 
 import com.example.voicelibrarysample.UserSetUIInterface.MasterInterfaceVoice;
+import com.example.voicelibrarysample.VoiceMasterClass;
+
 import java.util.List;
 import static android.speech.SpeechRecognizer.createSpeechRecognizer;
 
@@ -25,10 +27,10 @@ public class VoiceHelper  {
     private VoiceUIHelper voiceUIHelper;
 
 
-    public VoiceHelper(Context context, MasterInterfaceVoice masterInterfaceVoice, EditText editText) {
+    public VoiceHelper(Context context, MasterInterfaceVoice masterInterfaceVoice, String eventStatus) {
         this.masterInterfaceVoice = masterInterfaceVoice;
         this.context = context;
-        this.voiceUIHelper = new VoiceUIHelper(context,true, editText);
+        this.voiceUIHelper = new VoiceUIHelper(context,true, eventStatus);
         speechRecognizer = createSpeechRecognizer(context);
     }
 
@@ -47,7 +49,7 @@ public class VoiceHelper  {
 
     public void startSpeakingMain(String msg, String utteranceID) {
         tts.speak(msg, TextToSpeech.QUEUE_FLUSH, null, utteranceID);
-
+        voiceUIHelper.startinListening();
     }
 
     public void stopSpeakingMain() {

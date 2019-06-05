@@ -15,10 +15,14 @@ public class VoiceMasterClass {
 
     private Context context;
     private MasterInterfaceVoice masterInterfaceVoice;
-    private  VoiceHelper voiceHelper;
-    private EventStatus eventStatus;
+    private VoiceHelper voiceHelper;
+    public String eventStatus;
 
-    private enum EventStatus {
+    public VoiceMasterClass() {
+
+    }
+
+    public enum EventStatus {
         PROCESSING, LISTENING, SPEAKING, REST; //ENUM
     }
 
@@ -27,11 +31,11 @@ public class VoiceMasterClass {
      * @Param Context
      * @Param MasterInterface
      * */
-    public  VoiceMasterClass(Context context, MasterInterfaceVoice masterInterfaceVoice,EventStatus eventStatus) {
+    public  VoiceMasterClass(Context context, MasterInterfaceVoice masterInterfaceVoice, String eventStatus) {
         this.context = context;
         this.eventStatus = eventStatus;
         this.masterInterfaceVoice = masterInterfaceVoice;
-        this.voiceHelper = new VoiceHelper(context,masterInterfaceVoice);
+        this.voiceHelper = new VoiceHelper(context,masterInterfaceVoice, eventStatus);
     }
 
     /**
@@ -74,11 +78,11 @@ public class VoiceMasterClass {
     }
 
 
-    public EventStatus getEventStatus() {
+    public String getEventStatus() {
         return eventStatus;
     }
 
-    private void setEventStatus(EventStatus eventStatus) {
+    private void setEventStatus(String eventStatus) {
         this.eventStatus = eventStatus;
     }
 }
