@@ -16,20 +16,24 @@ import com.example.voicelibrarysample.VoiceHelper.VoiceHelper;
 public class VoiceMasterClass {
 
 
-    private stateType currentStateType;
     private Context context;
     private MasterInterfaceVoice masterInterfaceVoice;
     private  VoiceHelper voiceHelper;
-    private enum stateType {
+    private int value;
+
+    private enum EventStatus {
         PROCESSING, LISTENING, SPEAKING, REST; //ENUM
     }
+
+
     /**
      * voice master class initialisation
      * @Param Context
      * @Param MasterInterface
      * */
-    public  VoiceMasterClass(Context context, MasterInterfaceVoice masterInterfaceVoice) {
+    public  VoiceMasterClass(Context context, MasterInterfaceVoice masterInterfaceVoice,int value) {
         this.context = context;
+        this.value = value;
         this.masterInterfaceVoice = masterInterfaceVoice;
         this.voiceHelper = new VoiceHelper(context,this);
     }
@@ -74,11 +78,12 @@ public class VoiceMasterClass {
         return masterInterfaceVoice;
     }
 
-    public stateType getCurrentStateType() {
-        return currentStateType;
+    public int getValue() {
+        return value;
+    }
+    //Just for testing from some SO answers, but no use
+    public void setValue(int value) {
+        this.value = value;
     }
 
-    public void setCurrentStateType(stateType currentStateType) {
-        this.currentStateType = currentStateType;
-    }
 }

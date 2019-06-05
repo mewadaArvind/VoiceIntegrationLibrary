@@ -7,17 +7,10 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
-import android.speech.tts.UtteranceProgressListener;
-
 import android.util.Log;
-
-
-import com.example.voicelibrarysample.VoiceMasterClass;
-
-import java.util.List;
-
-
+import com.example.voicelibrarysample.VoiceMasterClass;import java.util.List;
 import static android.speech.SpeechRecognizer.createSpeechRecognizer;
+
 
 public class VoiceHelper  {
 
@@ -63,7 +56,6 @@ public class VoiceHelper  {
             speechRecognizer.cancel();
             speechRecognizer.destroy();
         }
-        voiceMasterClass.stopListening();
 //        close();
         voiceMasterClass.getMasterInterfaceVoice().stopListening();
     }
@@ -78,11 +70,14 @@ public class VoiceHelper  {
                 public void onReadyForSpeech(Bundle bundle) {
                     isSpeechRecognizerRunning = true;
 //                    data(null, null);
+//                    listening.data(null,null);
                 }
 
                 @Override
                 public void onBeginningOfSpeech() {
 //                    data(null, null);
+//                    listening.data(null,null);
+
                 }
 
                 @Override
@@ -97,14 +92,18 @@ public class VoiceHelper  {
                 @Override
                 public void onEndOfSpeech() {
 //                    close();
-                    voiceMasterClass.stopListening();
+
+//                    stopListening.close();
+                    voiceMasterClass.getMasterInterfaceVoice().stopListening();
                     isSpeechRecognizerRunning = false;
+
                 }
 
                 @Override
                 public void onError(int i) {
 //                    close();
-                    voiceMasterClass.stopListening();
+//                    stopListening.close();
+                    voiceMasterClass.getMasterInterfaceVoice().stopListening();
                     isSpeechRecognizerRunning = false;
                 }
 
@@ -124,7 +123,8 @@ public class VoiceHelper  {
                         i++;
                     }
                     Log.e("Final...",msg);
-
+//                    listening.data(null, msg);
+                    voiceMasterClass.getMasterInterfaceVoice().finalResultShow();
 //                    data(null, msg);
 
                 }
@@ -134,6 +134,8 @@ public class VoiceHelper  {
                     List<String> arrayList = (List<String>) bundle.get("results_recognition");
                     String msg = arrayList.get(0);
 //                    data(msg, null);
+//                    listening.data(msg,null);
+                    voiceMasterClass.getMasterInterfaceVoice().liveTextChangesShow();
                 }
 
                 @Override
