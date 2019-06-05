@@ -122,7 +122,6 @@ public class VoiceHelper  {
                         i++;
                     }
                     Log.e("Final...",msg);
-                    voiceUIHelper.setValueInEditText(msg);
                     masterInterfaceVoice.finalResultShow(msg);
                 }
 
