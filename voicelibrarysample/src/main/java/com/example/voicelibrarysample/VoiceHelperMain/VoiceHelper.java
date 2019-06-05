@@ -132,6 +132,7 @@ public class VoiceHelper  {
                     voiceStatusInterface.VoiceStatusProcessing();
                     masterInterfaceVoice.network();
                     masterInterfaceVoice.received();
+                    masterInterfaceVoice.stopedListening();
                     voiceStatusInterface.VoiceStatusResting();
                 }
 
