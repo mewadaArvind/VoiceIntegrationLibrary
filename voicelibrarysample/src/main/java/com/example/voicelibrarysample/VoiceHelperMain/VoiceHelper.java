@@ -127,6 +127,7 @@ public class VoiceHelper  {
                     Log.e("Final...",msg);
                     masterInterfaceVoice.finalResultShow(msg);
                     voiceStatusInterface.VoiceStatusProcessing();
+                    masterInterfaceVoice.network();
                 }
 
                 @Override
