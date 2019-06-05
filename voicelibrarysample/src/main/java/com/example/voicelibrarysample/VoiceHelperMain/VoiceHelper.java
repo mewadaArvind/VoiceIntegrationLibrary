@@ -1,4 +1,4 @@
-package com.example.voicelibrarysample.VoiceHelper;
+package com.example.voicelibrarysample.VoiceHelperMain;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,8 +8,9 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.widget.EditText;
 
-import com.example.voicelibrarysample.MasterInterfaceVoice;
+import com.example.voicelibrarysample.UserSetUIInterface.MasterInterfaceVoice;
 import java.util.List;
 import static android.speech.SpeechRecognizer.createSpeechRecognizer;
 
@@ -21,10 +22,13 @@ public class VoiceHelper  {
     private boolean isSpeechRecognizerRunning;
     private Context context;
     private MasterInterfaceVoice masterInterfaceVoice;
+    private VoiceUIHelper voiceUIHelper;
 
-    public VoiceHelper(Context context, MasterInterfaceVoice masterInterfaceVoice) {
+
+    public VoiceHelper(Context context, MasterInterfaceVoice masterInterfaceVoice, EditText editText) {
         this.masterInterfaceVoice = masterInterfaceVoice;
         this.context = context;
+        this.voiceUIHelper = new VoiceUIHelper(context,true, editText);
         speechRecognizer = createSpeechRecognizer(context);
     }
 
@@ -43,6 +47,7 @@ public class VoiceHelper  {
 
     public void startSpeakingMain(String msg, String utteranceID) {
         tts.speak(msg, TextToSpeech.QUEUE_FLUSH, null, utteranceID);
+
     }
 
     public void stopSpeakingMain() {
@@ -115,6 +120,7 @@ public class VoiceHelper  {
                         i++;
                     }
                     Log.e("Final...",msg);
+                    voiceUIHelper.setValueInEditText(msg);
                     masterInterfaceVoice.finalResultShow(msg);
                 }
 

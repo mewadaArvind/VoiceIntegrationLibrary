@@ -1,8 +1,7 @@
-package com.example.voicelibrarysample.VoiceHelper;
+package com.example.voicelibrarysample.VoiceHelperMain;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.widget.Button;
 import android.widget.EditText;
 
 
@@ -14,11 +13,10 @@ public class VoiceUIHelper {
     private boolean isAppendTextON;
 
     public VoiceUIHelper(Context context
-            , EditText editText
-            , boolean isAppendTextON){
+            , boolean isAppendTextON,EditText editText){
         this.context = context;
+        this.editText =editText;
         this.isAppendTextON = isAppendTextON;
-        this.editText = editText;
     }
 
     public void setValueInEditText(@NonNull String msg){

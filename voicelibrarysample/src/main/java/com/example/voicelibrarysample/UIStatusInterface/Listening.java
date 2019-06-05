@@ -1,4 +1,4 @@
-package com.example.voicelibrarysample.VoiceHelper;
+package com.example.voicelibrarysample.UIStatusInterface;
 
 import android.support.annotation.Nullable;
 

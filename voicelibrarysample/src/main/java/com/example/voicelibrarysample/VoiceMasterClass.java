@@ -1,8 +1,8 @@
 package com.example.voicelibrarysample;
 
 import android.content.Context;
-import com.example.voicelibrarysample.VoiceHelper.VoiceHelper;
-
+import com.example.voicelibrarysample.VoiceHelperMain.VoiceHelper;
+import com.example.voicelibrarysample.UserSetUIInterface.MasterInterfaceVoice;
 
 
 /**
@@ -16,7 +16,7 @@ public class VoiceMasterClass {
     private Context context;
     private MasterInterfaceVoice masterInterfaceVoice;
     private  VoiceHelper voiceHelper;
-    private int value;
+    private EventStatus eventStatus;
 
     private enum EventStatus {
         PROCESSING, LISTENING, SPEAKING, REST; //ENUM
@@ -27,8 +27,9 @@ public class VoiceMasterClass {
      * @Param Context
      * @Param MasterInterface
      * */
-    public  VoiceMasterClass(Context context, MasterInterfaceVoice masterInterfaceVoice) {
+    public  VoiceMasterClass(Context context, MasterInterfaceVoice masterInterfaceVoice,EventStatus eventStatus) {
         this.context = context;
+        this.eventStatus = eventStatus;
         this.masterInterfaceVoice = masterInterfaceVoice;
         this.voiceHelper = new VoiceHelper(context,masterInterfaceVoice);
     }
@@ -72,12 +73,12 @@ public class VoiceMasterClass {
         return masterInterfaceVoice;
     }
 
-    public int getValue() {
-        return value;
-    }
-    //Just for testing from some SO answers, but no use
-    public void setValue(int value) {
-        this.value = value;
+
+    public EventStatus getEventStatus() {
+        return eventStatus;
     }
 
+    private void setEventStatus(EventStatus eventStatus) {
+        this.eventStatus = eventStatus;
+    }
 }

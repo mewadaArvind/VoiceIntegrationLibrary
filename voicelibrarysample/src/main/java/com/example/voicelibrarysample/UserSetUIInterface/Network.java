@@ -1,20 +1,20 @@
-package com.example.voicelibrarysample;
+package com.example.voicelibrarysample.UserSetUIInterface;
 
 /**
  * Created by Mewada Arvind on 1 June 2019
  * network related process here
  * */
-public interface NetworkCallAfterFinalMessageRecieved {
+public interface Network {
 
    /**
    * all network process
    */
-    void doNetwokingProcess();
+    void network();
 
     /**
      * received process action perform
      * */
-    void recievedProcess();
+    void recieved();
 
     /**
      * stop all listening process

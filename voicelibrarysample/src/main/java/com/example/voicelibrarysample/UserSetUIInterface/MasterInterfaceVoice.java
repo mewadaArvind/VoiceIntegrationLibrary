@@ -1,4 +1,4 @@
-package com.example.voicelibrarysample;
+package com.example.voicelibrarysample.UserSetUIInterface;
 
 /**
  * Created by Mewada Arvind on 1 June 2019
@@ -10,8 +10,8 @@ package com.example.voicelibrarysample;
  * received final result interface
  * network interface extends all
  * */
-public interface MasterInterfaceVoice extends StartingListeningMaster, LiveTextChangesMaster
-        ,FinalResultMaster, NetworkCallAfterFinalMessageRecieved, Destroy {
+public interface MasterInterfaceVoice extends StartingListening, LiveTextChanges
+        , FinalResult, Network, Destroy {
     /**
      * error if something wrong
      * */

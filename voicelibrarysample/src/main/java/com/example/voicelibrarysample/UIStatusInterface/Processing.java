@@ -1,4 +1,4 @@
-package com.example.voicelibrarysample.VoiceHelper;
+package com.example.voicelibrarysample.UIStatusInterface;
 
 public interface Processing {
     void run(String finalMessage);
