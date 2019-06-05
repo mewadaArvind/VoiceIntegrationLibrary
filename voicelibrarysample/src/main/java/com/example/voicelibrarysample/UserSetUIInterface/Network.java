@@ -14,7 +14,7 @@ public interface Network {
     /**
      * received process action perform
      * */
-    void recieved();
+    void received();
 
     /**
      * stop all listening process

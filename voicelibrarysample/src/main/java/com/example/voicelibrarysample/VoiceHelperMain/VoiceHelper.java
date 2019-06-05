@@ -51,14 +51,17 @@ public class VoiceHelper  {
     public void startSpeakingMain(String msg, String utteranceID) {
         tts.speak(msg, TextToSpeech.QUEUE_FLUSH, null, utteranceID);
         voiceStatusInterface.VoiceStatusSpeaking();
+        masterInterfaceVoice.startedListening();
     }
 
     public void stopSpeakingMain() {
         isSpeechRecognizerRunning = false;
         if (tts != null && tts.isSpeaking()) {
             tts.stop();
+            masterInterfaceVoice.stopedListening();
+            voiceStatusInterface.VoiceStatusResting();
         }
-        voiceStatusInterface.VoiceStatusResting();
+
     }
 
     public void stopListeningMain() {
@@ -128,6 +131,8 @@ public class VoiceHelper  {
                     masterInterfaceVoice.finalResultShow(msg);
                     voiceStatusInterface.VoiceStatusProcessing();
                     masterInterfaceVoice.network();
+                    masterInterfaceVoice.received();
+                    voiceStatusInterface.VoiceStatusResting();
                 }
 
                 @Override
