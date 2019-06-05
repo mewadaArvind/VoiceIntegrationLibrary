@@ -18,7 +18,6 @@ public class VoiceMasterClass implements VoiceStatusInterface {
     private Context context;
     private MasterInterfaceVoice masterInterfaceVoice;
     private VoiceHelper voiceHelper;
-    private VoiceStatusInterface voiceStatusInterface;
     public EventStatus eventStatus;
     public static enum EventStatus {
         PROCESSING, LISTENING, SPEAKING, REST; //ENUM
@@ -33,11 +32,11 @@ public class VoiceMasterClass implements VoiceStatusInterface {
      * @Param Context
      * @Param MasterInterface
      * */
-    public  VoiceMasterClass(Context context, MasterInterfaceVoice masterInterfaceVoice,VoiceStatusInterface voiceStatusInterface) {
+    public  VoiceMasterClass(Context context, MasterInterfaceVoice masterInterfaceVoice) {
         this.context = context;
-        this.voiceStatusInterface = voiceStatusInterface;
+        this.setEventStatus(EventStatus.REST);
         this.masterInterfaceVoice = masterInterfaceVoice;
-        this.voiceHelper = new VoiceHelper(context,masterInterfaceVoice, voiceStatusInterface);
+        this.voiceHelper = new VoiceHelper(context,masterInterfaceVoice, this);
     }
 
     @Override
