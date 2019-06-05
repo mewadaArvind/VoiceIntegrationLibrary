@@ -8,10 +8,11 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
-import android.widget.EditText;
 
+
+import com.example.voicelibrarysample.UIStatusInterface.VoiceStatusInterface;
 import com.example.voicelibrarysample.UserSetUIInterface.MasterInterfaceVoice;
-import com.example.voicelibrarysample.VoiceMasterClass;
+
 
 import java.util.List;
 import static android.speech.SpeechRecognizer.createSpeechRecognizer;
@@ -24,13 +25,13 @@ public class VoiceHelper  {
     private boolean isSpeechRecognizerRunning;
     private Context context;
     private MasterInterfaceVoice masterInterfaceVoice;
-    private VoiceUIHelper voiceUIHelper;
+    private VoiceStatusInterface voiceStatusInterface;
 
 
-    public VoiceHelper(Context context, MasterInterfaceVoice masterInterfaceVoice, String eventStatus) {
+    public VoiceHelper(Context context, MasterInterfaceVoice masterInterfaceVoice, VoiceStatusInterface voiceStatusInterface) {
         this.masterInterfaceVoice = masterInterfaceVoice;
         this.context = context;
-        this.voiceUIHelper = new VoiceUIHelper(context,true, eventStatus);
+        this.voiceStatusInterface = voiceStatusInterface;
         speechRecognizer = createSpeechRecognizer(context);
     }
 
@@ -49,7 +50,7 @@ public class VoiceHelper  {
 
     public void startSpeakingMain(String msg, String utteranceID) {
         tts.speak(msg, TextToSpeech.QUEUE_FLUSH, null, utteranceID);
-        voiceUIHelper.startinListening();
+        voiceStatusInterface.VoiceStatusSpeaking();
     }
 
     public void stopSpeakingMain() {
@@ -57,6 +58,7 @@ public class VoiceHelper  {
         if (tts != null && tts.isSpeaking()) {
             tts.stop();
         }
+        voiceStatusInterface.VoiceStatusResting();
     }
 
     public void stopListeningMain() {
@@ -66,6 +68,7 @@ public class VoiceHelper  {
             speechRecognizer.destroy();
         }
         masterInterfaceVoice.stopedListening();
+        voiceStatusInterface.VoiceStatusResting();
     }
 
     public void startListeningMain() {
@@ -123,6 +126,7 @@ public class VoiceHelper  {
                     }
                     Log.e("Final...",msg);
                     masterInterfaceVoice.finalResultShow(msg);
+                    voiceStatusInterface.VoiceStatusProcessing();
                 }
 
                 @Override
@@ -145,6 +149,7 @@ public class VoiceHelper  {
             recognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, (context).getPackageName());
             speechRecognizer.startListening(recognizerIntent);
             masterInterfaceVoice.startedListening();
+            voiceStatusInterface.VoiceStatusListening();
         }
     }
 
@@ -154,6 +159,7 @@ public class VoiceHelper  {
             tts.shutdown();
         }
         masterInterfaceVoice.destroy();
+        voiceStatusInterface.VoiceStatusResting();
     }
 
 }

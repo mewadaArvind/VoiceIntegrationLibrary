@@ -1,6 +1,8 @@
 package com.example.voicelibrarysample;
 
 import android.content.Context;
+
+import com.example.voicelibrarysample.UIStatusInterface.VoiceStatusInterface;
 import com.example.voicelibrarysample.VoiceHelperMain.VoiceHelper;
 import com.example.voicelibrarysample.UserSetUIInterface.MasterInterfaceVoice;
 
@@ -11,19 +13,18 @@ import com.example.voicelibrarysample.UserSetUIInterface.MasterInterfaceVoice;
  * handle voice integration
  * and handle network process here
  * */
-public class VoiceMasterClass {
+public class VoiceMasterClass implements VoiceStatusInterface {
 
     private Context context;
     private MasterInterfaceVoice masterInterfaceVoice;
     private VoiceHelper voiceHelper;
-    public String eventStatus;
+    public EventStatus eventStatus;
+    public enum EventStatus {
+        PROCESSING, LISTENING, SPEAKING, REST; //ENUM
+    }
 
     public VoiceMasterClass() {
 
-    }
-
-    public enum EventStatus {
-        PROCESSING, LISTENING, SPEAKING, REST; //ENUM
     }
 
     /**
@@ -31,11 +32,30 @@ public class VoiceMasterClass {
      * @Param Context
      * @Param MasterInterface
      * */
-    public  VoiceMasterClass(Context context, MasterInterfaceVoice masterInterfaceVoice, String eventStatus) {
+    public  VoiceMasterClass(Context context, MasterInterfaceVoice masterInterfaceVoice) {
         this.context = context;
-        this.eventStatus = eventStatus;
         this.masterInterfaceVoice = masterInterfaceVoice;
-        this.voiceHelper = new VoiceHelper(context,masterInterfaceVoice, eventStatus);
+        this.voiceHelper = new VoiceHelper(context,masterInterfaceVoice, this);
+    }
+
+    @Override
+    public void VoiceStatusListening() {
+        setEventStatus(EventStatus.LISTENING);
+    }
+
+    @Override
+    public void VoiceStatusSpeaking() {
+        setEventStatus(EventStatus.SPEAKING);
+    }
+
+    @Override
+    public void VoiceStatusProcessing() {
+        setEventStatus(EventStatus.PROCESSING);
+    }
+
+    @Override
+    public void VoiceStatusResting() {
+        setEventStatus(EventStatus.REST);
     }
 
     /**
@@ -78,11 +98,11 @@ public class VoiceMasterClass {
     }
 
 
-    public String getEventStatus() {
+    public EventStatus getEventStatus() {
         return eventStatus;
     }
 
-    private void setEventStatus(String eventStatus) {
+    private void setEventStatus(EventStatus eventStatus) {
         this.eventStatus = eventStatus;
     }
 }
