@@ -31,11 +31,10 @@ public class VoiceMasterClass {
      * @Param Context
      * @Param MasterInterface
      * */
-    public  VoiceMasterClass(Context context, MasterInterfaceVoice masterInterfaceVoice,int value) {
+    public  VoiceMasterClass(Context context, MasterInterfaceVoice masterInterfaceVoice) {
         this.context = context;
-        this.value = value;
         this.masterInterfaceVoice = masterInterfaceVoice;
-        this.voiceHelper = new VoiceHelper(context,this);
+        this.voiceHelper = new VoiceHelper(context,masterInterfaceVoice);
     }
 
 

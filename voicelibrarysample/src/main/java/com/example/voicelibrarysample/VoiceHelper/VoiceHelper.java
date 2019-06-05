@@ -8,6 +8,8 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+
+import com.example.voicelibrarysample.MasterInterfaceVoice;
 import com.example.voicelibrarysample.VoiceMasterClass;import java.util.List;
 import static android.speech.SpeechRecognizer.createSpeechRecognizer;
 
@@ -18,10 +20,10 @@ public class VoiceHelper  {
     private TextToSpeech tts = null;
     private boolean isSpeechRecognizerRunning;
     private Context context;
-    private VoiceMasterClass voiceMasterClass;
+    private MasterInterfaceVoice masterInterfaceVoice;
 
-    public VoiceHelper(Context context, VoiceMasterClass voiceMasterClass) {
-        this.voiceMasterClass = voiceMasterClass;
+    public VoiceHelper(Context context, MasterInterfaceVoice masterInterfaceVoice) {
+        this.masterInterfaceVoice = masterInterfaceVoice;
         this.context = context;
         speechRecognizer = createSpeechRecognizer(context);
     }
@@ -56,8 +58,7 @@ public class VoiceHelper  {
             speechRecognizer.cancel();
             speechRecognizer.destroy();
         }
-//        close();
-        voiceMasterClass.getMasterInterfaceVoice().stopListening();
+        masterInterfaceVoice.stopListening();
     }
 
     public void startListeningMain() {
@@ -94,7 +95,7 @@ public class VoiceHelper  {
 //                    close();
 
 //                    stopListening.close();
-                    voiceMasterClass.getMasterInterfaceVoice().stopListening();
+                    masterInterfaceVoice.stopListening();
                     isSpeechRecognizerRunning = false;
 
                 }
@@ -103,7 +104,7 @@ public class VoiceHelper  {
                 public void onError(int i) {
 //                    close();
 //                    stopListening.close();
-                    voiceMasterClass.getMasterInterfaceVoice().stopListening();
+                    masterInterfaceVoice.stopListening();
                     isSpeechRecognizerRunning = false;
                 }
 
@@ -124,7 +125,7 @@ public class VoiceHelper  {
                     }
                     Log.e("Final...",msg);
 //                    listening.data(null, msg);
-                    voiceMasterClass.getMasterInterfaceVoice().finalResultShow();
+                    masterInterfaceVoice.finalResultShow(msg);
 //                    data(null, msg);
 
                 }
@@ -135,7 +136,7 @@ public class VoiceHelper  {
                     String msg = arrayList.get(0);
 //                    data(msg, null);
 //                    listening.data(msg,null);
-                    voiceMasterClass.getMasterInterfaceVoice().liveTextChangesShow();
+                    masterInterfaceVoice.liveTextChangesShow(msg);
                 }
 
                 @Override
@@ -150,7 +151,7 @@ public class VoiceHelper  {
             recognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
             recognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, (context).getPackageName());
             speechRecognizer.startListening(recognizerIntent);
-            voiceMasterClass.getMasterInterfaceVoice().startedListening();
+            masterInterfaceVoice.startedListening();
         }
     }
 
@@ -159,7 +160,7 @@ public class VoiceHelper  {
             tts.stop();
             tts.shutdown();
         }
-        this.voiceMasterClass.getMasterInterfaceVoice().destroy();
+        masterInterfaceVoice.destroy();
     }
 
 }
