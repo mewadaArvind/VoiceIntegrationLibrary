@@ -1,10 +1,17 @@
 package com.example.voicelibrarysample;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 
 import com.example.voicelibrarysample.UIStatusInterface.VoiceStatusInterface;
 import com.example.voicelibrarysample.VoiceHelperMain.VoiceHelper;
 import com.example.voicelibrarysample.UserSetUIInterface.MasterInterfaceVoice;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 
 /**
@@ -62,8 +69,25 @@ public class VoiceMasterClass implements VoiceStatusInterface {
     /**
      * start listening call inside method
      * */
-    public   void startListening(){
-        voiceHelper.startListeningMain();
+    public   void startListening(Activity activity) {
+        Dexter.withActivity(activity)
+                .withPermission(Manifest.permission.RECORD_AUDIO)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {/* ... */
+                        voiceHelper.startListeningMain();
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(com.karumi.dexter.listener.PermissionRequest permission, PermissionToken token) {
+
+
+                    }
+
+                });
     }
 
     /**
